@@ -1,0 +1,37 @@
+name: CloudApp CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Build application
+      run: |
+        # Your build commands here
+
+    - name: Run unit tests
+      run: |
+        # Your dummy unit test commands here
+
+    - name: Build Docker image
+      run: |
+        # Your Docker build commands here
+        docker build -t your-docker-registry/your-cloudapp .
+
+    - name: Push Docker image
+      run: |
+        # Your Docker push commands here
+        docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        docker push your-docker-registry/your-cloudapp
+
+    - name: Deploy to cloud environment
+      run: |
+        # Your deployment commands here
